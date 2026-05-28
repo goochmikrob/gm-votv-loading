@@ -153,13 +153,6 @@ function preloadImages(urls, onComplete) {
     });
 }
 
-// Предзагружаем все фоны
-preloadImages(backgrounds, () => {
-    console.log("Все изображения предзагружены");
-    // Опционально: сразу ставим первый фон
-    document.querySelector('.bg').style.backgroundImage = `url('${backgrounds[0]}')`;
-});
-
 const backgrounds = [
     "wallpaper1.png",
     "wallpaper2.png",
@@ -169,6 +162,13 @@ const backgrounds = [
     "wallpaper7.png",
     "wallpaper8.png"
 ];
+
+// Предзагружаем все фоны
+preloadImages(backgrounds, () => {
+    console.log("Все изображения предзагружены");
+    // Опционально: сразу ставим первый фон
+    document.querySelector('.bg').style.backgroundImage = `url('${backgrounds[0]}')`;
+});
 
 let currentBgIndex = 0;
 const bgDiv = document.querySelector('.bg');
