@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM-VoTV | Загрузка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Фоновое изображение -->
+    <div class="bg"></div>
+    
+    <!-- Верхний левый угол: логи загрузки -->
+    <div class="panel panel-logs">
+        <div class="panel-title">> SYSTEM BOOT</div>
+        <div class="logs-container" id="logsContainer">
+            <div class="log-line">> Инициализация GM-VoTV...</div>
+        </div>
+    </div>
+    
+    <!-- Верхний правый угол: спектроанализатор -->
+    <div class="panel panel-spectrum">
+        <div class="panel-title">> SPECTRALYZER</div>
+        <canvas id="spectrumCanvas" width="400" height="150"></canvas>
+        <div class="random-letters" id="randomLetters"></div>
+    </div>
+    
+    <!-- Нижний левый угол: информация о сервере -->
+    <div class="panel panel-info">
+        <div class="panel-title">> SERVER STATUS</div>
+        <div class="info-content" id="infoContent">
+            <div>MAP: gm_construct</div>
+            <div>PLAYERS: 0/5</div>
+            <div>MODE: Co-op / VoTV</div>
+            <div>VERSION: 0.5.2b</div>
+        </div>
+    </div>
+    
+    <!-- Центр оставляем чистым для скриншота -->
+    
+    <script src="script.js"></script>
+</body>
+</html>
