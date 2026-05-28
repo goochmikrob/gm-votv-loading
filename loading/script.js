@@ -65,24 +65,35 @@ canvas.height = 150;
 const barsCount = 32;
 let amplitudes = new Array(barsCount).fill(0);
 
-function drawSpectrum() {
+// Управление скоростью обновления
+let lastTimestamp = 0;
+const updateInterval = 80; // миллисекунд между обновлениями (чем больше - тем медленнее)
+
+function drawSpectrum(currentTime) {
+    requestAnimationFrame(drawSpectrum);
+    
+    // Ограничиваем частоту обновления
+    if (currentTime - lastTimestamp < updateInterval) return;
+    lastTimestamp = currentTime;
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     // Плавно меняем амплитуды (имитация звука)
     for (let i = 0; i < barsCount; i++) {
         // Случайные изменения, но с инерцией
         let target = Math.random() * 0.8 + 0.2;
-        amplitudes[i] = amplitudes[i] * 0.85 + target * 0.15;
+        // Увеличиваем инерцию - амплитуды меняются медленнее
+        amplitudes[i] = amplitudes[i] * 0.92 + target * 0.08;
         
         let barHeight = amplitudes[i] * canvas.height;
         let barWidth = canvas.width / barsCount - 2;
         let x = i * (barWidth + 2);
         let y = canvas.height - barHeight;
         
-        // Градиент от зелёного к красному
+        // Градиент от зелёного к синему/фиолетовому
         let intensity = amplitudes[i];
         let r = 60;
-        let g = Math.floor(80 + intensity * 100);
+        let g = Math.floor(30 + intensity * 100);
         let b = Math.floor(80 + intensity * 175);
         
         ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
@@ -93,9 +104,10 @@ function drawSpectrum() {
         ctx.shadowColor = `rgba(0, 255, 0, ${intensity * 0.5})`;
     }
     ctx.shadowBlur = 0;
-    
-    requestAnimationFrame(drawSpectrum);
 }
+
+// Запускаем анимацию
+requestAnimationFrame(drawSpectrum);
 
 // Генерация случайных букв над спектром
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
