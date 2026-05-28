@@ -166,13 +166,11 @@ function preloadImages(urls, onComplete) {
 }
 
 const backgrounds = [
-    "wallpaper1.png",
     "wallpaper2.png",
     "wallpaper3.png",
     "wallpaper4.png",
     "wallpaper6.png",
-    "wallpaper7.png",
-    "wallpaper8.png"
+    "wallpaper7.png"
 ];
 
 // Предзагружаем все фоны
