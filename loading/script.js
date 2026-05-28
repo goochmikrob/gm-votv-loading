@@ -208,7 +208,7 @@ function changeBackground() {
             height: 100%;
             background: url('${nextUrl}') center/cover no-repeat;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.15s ease-in-out;
             z-index: 1;
         `;
         document.body.appendChild(secondLayer);
