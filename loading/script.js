@@ -1,19 +1,31 @@
 // ========== 1. ЛОГИ ЗАГРУЗКИ (левая верхняя панель) ==========
 const logs = [
-    "> FastNet: прослушивание портов...",
-    "> OptiSuperuser: загрузка прав...",
-    "> GTableManips: восстановление БД...",
-    "> UI Library: компиляция HUD...",
-    "> Сигналы: калибровка радара...",
-    "> Система монет: синхронизация...",
-    "> Дрон-транспортёр: проверка узлов...",
-    "> Система холода: датчики OK",
-    "> Отопление: газовые клапаны...",
-    "> Энтити: загрузка моделей...",
-    "> Достижения: импорт списков...",
-    "> Радар: активация апертуры...",
-    "> FastNet: обнаружено 5 узлов",
-    "> GM-VoTV: ядро готово"
+    "GM-VoTV: Инициализируем FastNet",
+    "GM-VoTV: Инициализируем OptiSuperUser",
+    "GM-VoTV: Инициализируем _uiLib",
+    "GM-VoTV: Инициализируем CL_gLua",
+    "GM-VoTV: Инициализируем SV_gLua",
+    "GM-VoTV: Инициализируем github_READER",
+    "GM-VoTV: Инициализируем github_WRITER",
+    "GM-VoTV: Инициализируем sf_manipulate",
+    "GM-VoTV: Инициализируем sf_transport",
+    "GM-VoTV: Инициализируем sf_recreator",
+    "GM-VoTV: Инициализируем sf_modelizer",
+    "GM-VoTV: Инициализируем sf_criticals",
+    "GM-VoTV: Инициализируем sf_superdamage",
+    "GM-VoTV: Инициализируем sf_WebSocketUNIT",
+    "GM-VoTV: Инициализируем sf_builtinsUNIT",
+    "GM-VoTV: Инициализируем sf_entityUNIT",
+    "GM-VoTV: Инициализируем sf_playerUNIT",
+    "GM-VoTV: Инициализируем sf_safeUNIT",
+    "GM-VoTV: Инициализируем sf_renderUNIT",
+    "GM-VoTV: Инициализируем sf_XYZ_UNIT",
+    "GM-VoTV: Инициализируем sf_vectorUNIT",
+    "GM-VoTV: Инициализируем sf_angleUNIT",
+    "GM-VoTV: Инициализируем FastNe",
+    "GM-VoTV: Инициализируем FastNet",
+    
+      
 ];
 
 let logIndex = 0;
@@ -107,7 +119,7 @@ function updateServerInfo() {
     infoDiv.innerHTML = `
         <div>MAP: ${map}</div>
         <div>PLAYERS: ${players}/${maxPlayers}</div>
-        <div>MODE: GM-VoTV / ${gamemode}</div>
+        <div>MODE: ${gamemode}</div>
         <div>VERSION: 0.5.3-dev</div>
         <div>STATUS: ONLINE</div>
     `;

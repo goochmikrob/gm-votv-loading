@@ -45,7 +45,7 @@ body {
     position: absolute;
     background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(4px);
-    border: 1px solid #2a6f2a;
+    border: 1px solid #442a6f;
     border-radius: 4px;
     padding: 12px;
     z-index: 10;
@@ -53,11 +53,11 @@ body {
 }
 
 .panel-title {
-    color: #6f9f6f;
+    color: #816f9f;
     font-size: 11px;
     letter-spacing: 2px;
     margin-bottom: 8px;
-    border-bottom: 1px solid #2a6f2a;
+    border-bottom: 1px solid #382a6f;
     padding-bottom: 4px;
     text-transform: uppercase;
 }
@@ -74,7 +74,7 @@ body {
     max-height: 220px;
     overflow-y: auto;
     font-size: 11px;
-    color: #8fcc8f;
+    color: #ac8fcc;
 }
 
 .log-line {
@@ -94,7 +94,7 @@ body {
     background: #1a1a1a;
 }
 .logs-container::-webkit-scrollbar-thumb {
-    background: #2a6f2a;
+    background: #412a6f;
 }
 
 /* Панель спектроанализатора (верхний правый угол) */
@@ -115,7 +115,7 @@ body {
 .random-letters {
     margin-top: 8px;
     font-size: 14px;
-    color: #6f9f6f;
+    color: #816f9f;
     text-align: center;
     letter-spacing: 4px;
     font-family: monospace;
@@ -131,7 +131,7 @@ body {
 
 .info-content {
     font-size: 12px;
-    color: #b8d4b8;
+    color: #c2b8d4;
     line-height: 1.6;
 }
 
