@@ -186,14 +186,47 @@ preloadImages(backgrounds, () => {
 
 let currentBgIndex = 0;
 const bgDiv = document.querySelector('.bg');
+let secondLayer = null;
+let isTransitioning = false;
 
-// Меняем фон через интервал
 function changeBackground() {
-    currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
-    bgDiv.style.background = `url('${backgrounds[currentBgIndex]}')`;
+    if (isTransitioning) return;
+    isTransitioning = true;
     
-    // Плавный переход (опционально)
-    bgDiv.style.transition = "background-image 1s ease-in-out";
+    const nextIndex = (currentBgIndex + 1) % backgrounds.length;
+    const nextUrl = backgrounds[nextIndex];
+    
+    // Если второго слоя нет — создаём
+    if (!secondLayer) {
+        secondLayer = document.createElement('div');
+        secondLayer.className = 'bg-layer';
+        secondLayer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('${nextUrl}') center/cover no-repeat;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+        `;
+        document.body.appendChild(secondLayer);
+    } else {
+        secondLayer.style.backgroundImage = `url('${nextUrl}')`;
+        secondLayer.style.opacity = '0';
+    }
+    
+    // Плавно показываем новый слой
+    secondLayer.style.opacity = '1';
+    
+    // Через полсекунды заменяем основной фон
+    setTimeout(() => {
+        bgDiv.style.backgroundImage = `url('${nextUrl}')`;
+        secondLayer.style.opacity = '0';
+        currentBgIndex = nextIndex;
+        isTransitioning = false;
+    }, 500);
 }
 
 // Запускаем смену каждые 5 секунд (5000 мс)

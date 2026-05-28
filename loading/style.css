@@ -40,6 +40,10 @@ body {
     pointer-events: none;
 }
 
+.bg-layer {
+    pointer-events: none;
+}
+
 /* Общий стиль для панелей */
 .panel {
     position: absolute;
