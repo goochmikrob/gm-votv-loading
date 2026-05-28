@@ -156,7 +156,7 @@ const bgDiv = document.querySelector('.bg');
 // Меняем фон через интервал
 function changeBackground() {
     currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
-    bgDiv.style.backgroundImage = `url('${backgrounds[currentBgIndex]}')`;
+    bgDiv.style.background = `url('${backgrounds[currentBgIndex]}')`;
     
     // Плавный переход (опционально)
     bgDiv.style.transition = "background-image 1s ease-in-out";
