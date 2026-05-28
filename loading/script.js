@@ -140,6 +140,26 @@ setTimeout(() => {
     updateLoadingProgress(); // Эффект изменения рамок
 }, 100);
 
+// ========== ПРЕДЗАГРУЗКА ВСЕХ ИЗОБРАЖЕНИЙ ==========
+function preloadImages(urls, onComplete) {
+    let loaded = 0;
+    urls.forEach((url, index) => {
+        const img = new Image();
+        img.onload = () => {
+            loaded++;
+            if (loaded === urls.length && onComplete) onComplete();
+        };
+        img.src = url;
+    });
+}
+
+// Предзагружаем все фоны
+preloadImages(backgrounds, () => {
+    console.log("Все изображения предзагружены");
+    // Опционально: сразу ставим первый фон
+    document.querySelector('.bg').style.backgroundImage = `url('${backgrounds[0]}')`;
+});
+
 const backgrounds = [
     "wallpaper1.png",
     "wallpaper2.png",
