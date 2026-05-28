@@ -132,7 +132,6 @@ function updateLoadingProgress() {
     requestAnimationFrame(() => setTimeout(updateLoadingProgress, 300));
 }
 
-// ========== СТАРТ ==========
 setTimeout(() => {
     addLog();               // Запускаем бегущие логи
     drawSpectrum();         // Запускаем анимацию спектра
@@ -140,3 +139,28 @@ setTimeout(() => {
     updateServerInfo();     // Запускаем мониторинг параметров сервера
     updateLoadingProgress(); // Эффект изменения рамок
 }, 100);
+
+const backgrounds = [
+    "wallpaper1.png",
+    "wallpaper2.png",
+    "wallpaper3.png",
+    "wallpaper4.png",
+    "wallpaper6.png",
+    "wallpaper7.png",
+    "wallpaper8.png"
+];
+
+let currentBgIndex = 0;
+const bgDiv = document.querySelector('.bg');
+
+// Меняем фон через интервал
+function changeBackground() {
+    currentBgIndex = (currentBgIndex + 1) % backgrounds.length;
+    bgDiv.style.backgroundImage = `url('${backgrounds[currentBgIndex]}')`;
+    
+    // Плавный переход (опционально)
+    bgDiv.style.transition = "background-image 1s ease-in-out";
+}
+
+// Запускаем смену каждые 5 секунд (5000 мс)
+setInterval(changeBackground, 5000);
