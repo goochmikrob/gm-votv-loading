@@ -22,9 +22,13 @@ const logs = [
     "GM-VoTV: Инициализируем sf_XYZ_UNIT",
     "GM-VoTV: Инициализируем sf_vectorUNIT",
     "GM-VoTV: Инициализируем sf_angleUNIT",
-    "GM-VoTV: Инициализируем FastNe",
-    "GM-VoTV: Инициализируем FastNet",
-    
+    "GM-VoTV: Инициализируем sf_netUNIT",
+    "GM-VoTV: Инициализируем sf_convarUNIT",
+    "GM-VoTV: Инициализируем sf_coroutineUNIT",
+    "GM-VoTV: Инициализируем sf_debugUNIT",
+    "GM-VoTV: Инициализируем sf_jsonUNIT",
+    "GM-VoTV: Инициализируем sf_nextbotUNIT",
+    "GM-VoTV: Инициализируем sf_socketUNIT",
       
 ];
 
@@ -45,7 +49,7 @@ function addLog() {
     logIndex++;
     
     // Продолжаем бесконечно, но медленнее после "готово"
-    let delay = logIndex < logs.length ? 400 : 2000;
+    let delay = logIndex < logs.length ? 200 : 3000;
     setTimeout(addLog, delay);
 }
 
@@ -77,9 +81,9 @@ function drawSpectrum() {
         
         // Градиент от зелёного к красному
         let intensity = amplitudes[i];
-        let r = Math.floor(80 + intensity * 175);
+        let r = 60;
         let g = Math.floor(80 + intensity * 100);
-        let b = 60;
+        let b = Math.floor(80 + intensity * 175);
         
         ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
         ctx.fillRect(x, y, barWidth, barHeight);
@@ -138,7 +142,7 @@ function updateLoadingProgress() {
     const panels = document.querySelectorAll('.panel');
     let intensity = Math.min(255, Math.floor(progress * 2.55));
     panels.forEach(panel => {
-        panel.style.borderColor = `rgb(${intensity}, ${100 + intensity/2}, ${50})`;
+        //panel.style.borderColor = `rgb(${intensity}, ${100 + intensity/2}, ${50})`;
     });
     
     requestAnimationFrame(() => setTimeout(updateLoadingProgress, 300));
