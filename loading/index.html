@@ -3,431 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inix • Добро пожаловать</title>
+    <title>Onyx</title>
     <style>
-        /* ---------- СБРОС И БАЗА ---------- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Arial', sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at 20% 30%, #1a1f2b, #0b0e14);
+            background: #0a0a0a;
             color: #e0e0e0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
             position: relative;
             overflow: hidden;
         }
 
-        /* Лёгкое свечение на фоне */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: rgba(0, 180, 255, 0.06);
-            border-radius: 50%;
-            top: -150px;
-            right: -150px;
-            filter: blur(100px);
+        /* --- Фоновый слой с точками --- */
+        #dots-layer {
+            position: fixed;
+            inset: 0;
             pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        body::after {
-            content: '';
+        .dot {
             position: absolute;
-            width: 500px;
-            height: 500px;
-            background: rgba(160, 0, 255, 0.05);
             border-radius: 50%;
-            bottom: -120px;
-            left: -120px;
-            filter: blur(100px);
-            pointer-events: none;
+            background: #ffffff;
+            opacity: 0;
+            will-change: opacity, transform;
         }
 
-        /* ---------- ОСНОВНАЯ КАРТОЧКА ---------- */
-        .motd-card {
-            background: rgba(18, 22, 32, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 200, 255, 0.25);
-            border-radius: 28px;
-            padding: 40px 45px;
-            max-width: 780px;
+        .card {
             width: 100%;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 80px rgba(0, 180, 255, 0.08);
+            max-width: 620px;
+            background: #111111;
+            border: 1px solid #262626;
+            border-radius: 12px;
+            padding: 44px 48px;
             position: relative;
             z-index: 1;
-            transition: border-color 0.3s ease;
-            animation: fadeUp 0.7s ease-out;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 6px;
         }
 
-        .motd-card:hover {
-            border-color: rgba(0, 200, 255, 0.5);
+        .sub {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555555;
+            margin-bottom: 32px;
         }
 
-        /* ---------- ЗАГОЛОВОК ---------- */
-        .header {
+        .divider {
+            height: 1px;
+            background: #222222;
+            margin: 28px 0;
+        }
+
+        p.greeting {
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: #999999;
+            margin-bottom: 4px;
+        }
+
+        .rules {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .rules li {
+            font-size: 0.88rem;
+            color: #b0b0b0;
+            padding: 7px 0;
+            line-height: 1.5;
             display: flex;
-            align-items: center;
-            gap: 18px;
-            margin-bottom: 28px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-            padding-bottom: 22px;
+            gap: 14px;
         }
 
-        .logo-icon {
-            width: 58px;
-            height: 58px;
-            background: linear-gradient(135deg, #00b4ff, #7a00ff);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 800;
-            color: #fff;
-            box-shadow: 0 0 25px rgba(0, 180, 255, 0.4);
+        .rules li::before {
+            content: '—';
+            color: #444444;
             flex-shrink: 0;
-            animation: pulseGlow 3s infinite ease-in-out;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 25px rgba(0, 180, 255, 0.3); }
-            50% { box-shadow: 0 0 45px rgba(0, 180, 255, 0.65); }
-        }
-
-        .header-text h1 {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #ffffff, #8ad4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .header-text .sub {
-            font-size: 0.9rem;
-            color: #8aa0b8;
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 4px;
-            font-weight: 400;
+            color: #666666;
         }
 
-        /* ---------- ПРИВЕТСТВИЕ ---------- */
-        .greeting {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: #c8d6e5;
-            margin-bottom: 30px;
-            padding-left: 4px;
-        }
-
-        .greeting .highlight {
-            color: #6ec8ff;
-            font-weight: 600;
-        }
-
-        /* ---------- СЕТКА ПРАВИЛ ---------- */
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
-            margin-bottom: 30px;
-        }
-
-        .rule-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 14px;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.25s ease;
-            cursor: default;
-        }
-
-        .rule-item:hover {
-            background: rgba(0, 180, 255, 0.08);
-            border-color: rgba(0, 180, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .rule-icon {
-            font-size: 1.4rem;
-            flex-shrink: 0;
-            width: 30px;
-            text-align: center;
-        }
-
-        .rule-text {
-            font-size: 0.92rem;
-            color: #b8c9dc;
-            font-weight: 500;
-            line-height: 1.3;
-        }
-
-        /* ---------- НИЖНЯЯ ПАНЕЛЬ ---------- */
-        .footer-panel {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            padding-top: 24px;
-            margin-top: 4px;
-        }
-
-        .server-info {
-            display: flex;
-            gap: 22px;
-            flex-wrap: wrap;
-        }
-
-        .info-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.88rem;
-            color: #8aa0b8;
-        }
-
-        .info-badge .dot {
-            width: 8px;
-            height: 8px;
+        .status .dot {
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: #2ecc71;
-            box-shadow: 0 0 10px #2ecc71;
-            animation: blink 2s infinite;
+            background: #ffffff;
+            opacity: 0.8;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .join-btn {
-            background: linear-gradient(135deg, #00b4ff, #0066ff);
-            border: none;
-            color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 13px 34px;
-            border-radius: 50px;
-            cursor: pointer;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 25px rgba(0, 130, 255, 0.35);
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .join-btn:hover {
-            transform: scale(1.04);
-            box-shadow: 0 8px 35px rgba(0, 170, 255, 0.55);
-            background: linear-gradient(135deg, #1fc0ff, #1a7aff);
-        }
-
-        .join-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* ---------- АДАПТИВ ---------- */
-        @media (max-width: 600px) {
-            .motd-card {
-                padding: 26px 22px;
-                border-radius: 20px;
+        @media (max-width: 500px) {
+            .card {
+                padding: 30px 24px;
+                border-radius: 8px;
             }
 
-            .header {
-                flex-direction: column;
-                text-align: center;
-                gap: 12px;
+            h1 {
+                font-size: 1.3rem;
+                letter-spacing: 4px;
             }
 
-            .header-text h1 {
-                font-size: 1.7rem;
+            .sub {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+                margin-bottom: 24px;
             }
 
-            .greeting {
-                font-size: 1rem;
-                text-align: center;
+            .divider {
+                margin: 20px 0;
             }
-
-            .rules-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-panel {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .server-info {
-                justify-content: center;
-            }
-
-            .join-btn {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .rules-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Кастомный скроллбар (для длинного контента) */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0e14;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e3a5f;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2a5a8f;
         }
     </style>
 </head>
 <body>
 
-    <div class="motd-card">
+    <div id="dots-layer"></div>
 
-        <!-- Заголовок -->
-        <div class="header">
-            <div class="logo-icon">IN</div>
-            <div class="header-text">
-                <h1>INIX</h1>
-                <div class="sub">DarkRP • Sandbox • Community</div>
-            </div>
-        </div>
+    <div class="card">
 
-        <!-- Приветствие -->
+        <h1>Onyx Sandbox</h1>
+        <div class="sub">sandbox</div>
+
+        <div class="divider"></div>
+
         <p class="greeting">
-            👋 Добро пожаловать на сервер <span class="highlight">Inix</span>! <br>
-            Здесь ты найдёшь уютное сообщество, стабильный геймплей и отзывчивую администрацию. <br>
-            Пожалуйста, ознакомься с основными правилами ниже.
+            приветствуем тебя на Onyx.
+            <br> как хороший человек, придерживайся нескольких простых правил
         </p>
 
-        <!-- Сетка правил -->
-        <div class="rules-grid">
-            <div class="rule-item">
-                <div class="rule-icon">🚫</div>
-                <div class="rule-text">Без читов и багов</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-icon">🤝</div>
-                <div class="rule-text">Уважай других игроков</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-icon">🛡️</div>
-                <div class="rule-text">Не мешай админам</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-icon">🎭</div>
-                <div class="rule-text">РП-отыгрыш приветствуется</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-icon">📢</div>
-                <div class="rule-text">Не спамь в чате</div>
-            </div>
-            <div class="rule-item">
-                <div class="rule-icon">💎</div>
-                <div class="rule-text">Играй честно и в кайф</div>
-            </div>
-        </div>
+        <div class="divider"></div>
 
-        <!-- Нижняя панель -->
-        <div class="footer-panel">
-            <div class="server-info">
-                <div class="info-badge">
-                    <span class="dot"></span> Сервер онлайн
-                </div>
-                <div class="info-badge">
-                    🎮 GMod 13
-                </div>
-                <div class="info-badge">
-                    ⚡ 128 tick
-                </div>
-            </div>
-            <button class="join-btn" onclick="showToast()">Играть</button>
+        <ul class="rules">
+            <li>без читов и эксплойтов</li>
+            <li>уважай других игроков</li>
+            <li>никакого спама в чате и голосовом</li>
+            <li>рп-отыгрыш приветствуется</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <div class="status">
+            <span class="dot"></span>
+            <span>. . 66 tickrate</span>
         </div>
 
     </div>
 
     <script>
-        // Простой дружелюбный отклик на кнопку "Играть"
-        function showToast() {
-            // Создаём уведомление
-            const toast = document.createElement('div');
-            toast.textContent = '🚀 Приятной игры на Inix!';
-            toast.style.position = 'fixed';
-            toast.style.bottom = '40px';
-            toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%) translateY(20px)';
-            toast.style.background = 'linear-gradient(135deg, #00b4ff, #0066ff)';
-            toast.style.color = '#fff';
-            toast.style.padding = '14px 34px';
-            toast.style.borderRadius = '50px';
-            toast.style.fontWeight = '700';
-            toast.style.fontSize = '1rem';
-            toast.style.boxShadow = '0 10px 30px rgba(0, 130, 255, 0.45)';
-            toast.style.opacity = '0';
-            toast.style.transition = 'all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1)';
-            toast.style.zIndex = '9999';
-            toast.style.letterSpacing = '0.5px';
-            toast.style.pointerEvents = 'none';
+        (function () {
+            const layer = document.getElementById('dots-layer');
+            const MAX_DOTS = 40;        // сколько точек живёт одновременно
+            const SPAWN_INTERVAL = 70; // мс между попытками создать точку
+            const active = new Set();
 
-            document.body.appendChild(toast);
+            function rand(min, max) {
+                return Math.random() * (max - min) + min;
+            }
 
-            // Анимация появления
-            requestAnimationFrame(() => {
-                toast.style.opacity = '1';
-                toast.style.transform = 'translateX(-50%) translateY(0)';
-            });
+            function spawnDot() {
+                if (active.size >= MAX_DOTS) return;
 
-            // Удаление через 2.5 секунды
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateX(-50%) translateY(20px)';
-                setTimeout(() => toast.remove(), 400);
-            }, 2500);
-        }
+                const dot = document.createElement('div');
+                dot.className = 'dot';
 
-        // Небольшой интерактив: лёгкий эффект при наведении на карточку
-        // (уже реализован в CSS, но можно добавить пару штрихов)
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('%c Inix MOTD loaded ', 'background: #00b4ff; color: #000; font-weight: bold; padding: 4px 8px; border-radius: 4px;');
-        });
+                // размер: от 2 до 5 px — мелкие, ненавязчивые
+                const size = rand(2, 5);
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+
+                // позиция: по всему окну, с небольшим отступом от краёв
+                dot.style.left = rand(2, 98) + '%';
+                dot.style.top = rand(2, 98) + '%';
+
+                // длительность жизни и анимации — рандом, чтобы не синхронно
+                const lifeMs = rand(2500, 5000);
+                const fadeIn = rand(600, 1200);
+                const fadeOut = rand(800, 1600);
+
+                layer.appendChild(dot);
+                active.add(dot);
+
+                // появление
+                requestAnimationFrame(() => {
+                    dot.style.transition = `opacity ${fadeIn}ms ease-in-out`;
+                    dot.style.opacity = rand(0.15, 0.45).toFixed(2);
+                });
+
+                // исчезновение и удаление
+                setTimeout(() => {
+                    dot.style.transition = `opacity ${fadeOut}ms ease-in-out`;
+                    dot.style.opacity = '0';
+                    setTimeout(() => {
+                        dot.remove();
+                        active.delete(dot);
+                    }, fadeOut + 50);
+                }, lifeMs);
+            }
+
+            // интервал спавна + небольшой джиттер через setTimeout-цепочку
+            function loop() {
+                spawnDot();
+                // случайный интервал 500–1100 мс, чтобы точки шли «волнами»
+                setTimeout(loop, rand(500, 1100));
+            }
+
+            // старт с небольшой задержкой, чтобы карточка успела появиться
+            setTimeout(loop, 300);
+
+            // при ресайзе ничего не ломается — позиции в процентах
+        })();
     </script>
 
 </body>
