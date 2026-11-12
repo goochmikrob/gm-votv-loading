@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чек-листы по математике · 7–9 классы</title>
+  <style>
+    
+    :root {
+      --bg-body: #fefefe;
+      --bg-page: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #1e1e1e;
+      --text-secondary: #555;
+      --text-muted: #888;
+      --border-light: #e0e0e0;
+      --border-card: #ddd;
+      --border-hover: #a0a0a0;
+      --accent: #2d5a7a;
+      --accent-soft: #e8eef3;
+      --level-5: #2d5a7a; 
+      --level-4: #4f7a5c; 
+      --level-3: #b07a4a;  
+      --strike: #aaa;
+      --btn-bg: #ffffff;
+      --btn-bg-hover: #f5f5f5;
+      --shadow-none: none;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #121212;
+      --bg-page: #1a1a1a;
+      --bg-card: #1e1e1e;
+      --text-primary: #e8e8e8;
+      --text-secondary: #b0b0b0;
+      --text-muted: #888;
+      --border-light: #2c2c2c;
+      --border-card: #333333;
+      --border-hover: #555;
+      --accent: #7aa7c7;
+      --accent-soft: #22303a;
+      --level-5: #7aa7c7;
+      --level-4: #7fb08a;
+      --level-3: #d4a373;
+      --strike: #666;
+      --btn-bg: #232323;
+      --btn-bg-hover: #2c2c2c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.5;
+      color: var(--text-primary);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .page {
+      max-width: 1200px;
+      width: 100%;
+      background: var(--bg-page);
+      border-radius: 0;
+      box-shadow: none;
+      transition: background-color 0.2s;
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .theme-switch {
+      position: relative;
+      width: 44px;
+      height: 22px;
+      background: var(--border-light);
+      border-radius: 11px;
+      cursor: pointer;
+      border: 1px solid var(--border-card);
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .theme-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #ffffff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    [data-theme="dark"] .theme-switch {
+      background: var(--accent);
+    }
+
+    [data-theme="dark"] .theme-switch::after {
+      transform: translateX(22px);
+      background: #121212;
+    }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .class-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      padding: 1.8rem 1.5rem 1.8rem 1.5rem;
+      transition: border-color 0.15s, background-color 0.2s;
+    }
+
+    .class-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .class-title {
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .class-title span {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    .topic-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      padding: 0.15rem 0;
+    }
+
+    .topic-label {
+      cursor: default;
+      flex: 1;
+      transition: color 0.15s, text-decoration-color 0.15s;
+    }
+
+    .topic-item[data-level="5"] .topic-label,
+    .topic-item[data-level="4"] .topic-label,
+    .topic-item[data-level="3"] .topic-label {
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+      color: var(--text-muted);
+    }
+
+    .level-btn {
+      width: 1.9rem;
+      height: 1.9rem;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--btn-bg);
+      border: 1.5px solid var(--border-card);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+      user-select: none;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .level-btn:hover {
+      background: var(--btn-bg-hover);
+      border-color: var(--border-hover);
+    }
+
+    .level-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .level-btn[data-level="0"]::before {
+      content: "·";
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--border-hover);
+      margin-top: -4px;
+    }
+
+    /* уровни — цветная заливка */
+    .level-btn[data-level="5"] {
+      background: var(--level-5);
+      border-color: var(--level-5);
+      color: #fff;
+    }
+
+    .level-btn[data-level="4"] {
+      background: var(--level-4);
+      border-color: var(--level-4);
+      color: #fff;
+    }
+
+    .level-btn[data-level="3"] {
+      background: var(--level-3);
+      border-color: var(--level-3);
+      color: #fff;
+    }
+
+    [data-theme="dark"] .level-btn[data-level="5"],
+    [data-theme="dark"] .level-btn[data-level="4"],
+    [data-theme="dark"] .level-btn[data-level="3"] {
+      color: #121212;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border-light);
+      padding-top: 1.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 1rem 0.8rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-top: 2.2rem;
+      }
+
+      .theme-toggle {
+        top: -0.2rem;
+        right: 0.2rem;
+      }
+
+      .class-card {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .class-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="theme-toggle">
+        <span>Тёмная тема</span>
+        <div class="theme-switch" id="themeSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="Переключить тёмную тему"></div>
+      </div>
+      <h1>Чек-листы по математике</h1>
+      <div class="subhead">7 — 9 класс · нажмите на квадрат: 5 → 4 → 3 → пусто</div>
+    </header>
+
+    <div class="classes-grid">
+
+      <section class="class-card">
+        <div class="class-title">7 класс <span>алгебра + геометрия</span></div>
+        <ul class="topic-list">
+          <li class="topic-item" data-level="0" data-id="t7-1">
+            <button class="level-btn" data-level="0" aria-label="Уровень темы">5</button>
+            <span class="topic-label">Числовые выражения. Выражения с переменными</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-2">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Уравнения с одной переменной. Линейные уравнения</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-3">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Функции и их графики. Линейная функция</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-4">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Степень с натуральным показателем</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-5">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Одночлены и многочлены. Действия с многочленами</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-6">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Формулы сокращённого умножения</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-7">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Системы линейных уравнений</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-8">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Признаки равенства треугольников</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-9">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Параллельные прямые. Аксиома параллельности</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t7-10">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Соотношения между сторонами и углами треугольника</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="class-card">
+        <div class="class-title">8 класс <span>алгебра + геометрия</span></div>
+        <ul class="topic-list">
+          <li class="topic-item" data-level="0" data-id="t8-1">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Рациональные дроби и их свойства</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-2">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Сумма и разность дробей. Произведение и частное</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-3">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Квадратные корни. Арифметический квадратный корень</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-4">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Свойства квадратных корней. Преобразование выражений</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-5">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Квадратные уравнения. Формула корней</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-6">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Дробные рациональные уравнения</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-7">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Числовые неравенства и их свойства</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-8">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Квадратные неравенства</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-9">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Четырёхугольники: параллелограмм, трапеция, прямоугольник</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-10">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Площади фигур. Теорема Пифагора</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-11">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Подобие треугольников. Признаки подобия</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t8-12">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Окружность. Вписанные и центральные углы</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="class-card">
+        <div class="class-title">9 класс <span>алгебра + геометрия</span></div>
+        <ul class="topic-list">
+          <li class="topic-item" data-level="0" data-id="t9-1">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Квадратичная функция, её график и свойства</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-2">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Квадратные уравнения и неравенства (углубление)</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-3">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Системы уравнений с двумя переменными</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-4">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Арифметическая прогрессия</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-5">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Геометрическая прогрессия</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-6">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Степенная функция. Корень n-й степени</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-7">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Элементы комбинаторики и теории вероятностей</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-8">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Векторы. Метод координат</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-9">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Соотношения в треугольнике. Теорема синусов и косинусов</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-10">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Длина окружности и площадь круга</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-11">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Движения: параллельный перенос, поворот</span>
+          </li>
+          <li class="topic-item" data-level="0" data-id="t9-12">
+            <button class="level-btn" data-level="0">5</button>
+            <span class="topic-label">Многоугольники. Правильные многоугольники</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>
+      <span>☑ оценки сохраняются в браузере</span>
+      <span>✧ классический школьный чек-лист</span>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      const STORAGE_PREFIX = 'math_level_';
+      const THEME_KEY = 'math_theme';
+      const LEVELS = [5, 4, 3, 0]; 
+
+      const html = document.documentElement;
+      const themeSwitch = document.getElementById('themeSwitch');
+
+      function applyTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        themeSwitch.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
+      }
+
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if (savedTheme === 'dark') {
+        applyTheme('dark');
+      } else {
+        applyTheme('light');
+      }
+
+      function toggleTheme() {
+        const current = html.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem(THEME_KEY, next);
+      }
+
+      themeSwitch.addEventListener('click', toggleTheme);
+      themeSwitch.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTheme();
+        }
+      });
+
+      const topicItems = document.querySelectorAll('.topic-item');
+
+      topicItems.forEach(item => {
+        const id = item.dataset.id;
+        const saved = localStorage.getItem(STORAGE_PREFIX + id);
+        let level = 0;
+        if (saved !== null) {
+          const parsed = parseInt(saved, 10);
+          if (LEVELS.includes(parsed)) {
+            level = parsed;
+          }
+        }
+        setLevel(item, level);
+      });
+
+      // обработчик клика
+      topicItems.forEach(item => {
+        const btn = item.querySelector('.level-btn');
+        btn.addEventListener('click', () => {
+          const currentLevel = parseInt(item.dataset.level, 10) || 0;
+          let idx = LEVELS.indexOf(currentLevel);
+          if (idx === -1) idx = 0; 
+          const nextLevel = LEVELS[(idx + 1) % LEVELS.length];
+          setLevel(item, nextLevel);
+          localStorage.setItem(STORAGE_PREFIX + item.dataset.id, nextLevel);
+        });
+      });
+
+      function setLevel(item, level) {
+        item.dataset.level = level;
+        const btn = item.querySelector('.level-btn');
+        btn.dataset.level = level;
+
+        if (level === 0) {
+          btn.textContent = '';
+        } else {
+          btn.textContent = level;
+        }
+
+        const labelMap = {
+          0: 'Уровень не выставлен, нажмите для оценки 5',
+          5: 'Оценка 5, нажмите для 4',
+          4: 'Оценка 4, нажмите для 3',
+          3: 'Оценка 3, нажмите для сброса'
+        };
+        btn.setAttribute('aria-label', labelMap[level] || 'Уровень темы');
+      }
+    })();
+  </script>
+</body>
+</html>
